@@ -1,0 +1,90 @@
+<SongButton>:
+    size_hint_y: None
+    height: 50
+    opacity: .3
+    title: None
+    artist: None
+    img_link: None
+
+<Playlist>:
+    playlist: playlist
+    FloatLayout:
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 5
+            size_hint_y: .1 
+            pos_hint: {"top": .97}
+            
+            Button:
+                text: 'Playlist'
+                on_release: root.manager.current = 'playlist'
+            
+            Button:
+                text: 'Discover'
+                on_release: root.manager.current = 'recomms'
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: .6, .77
+            pos_hint: {"top":.8, "right": 1}
+            scroll_type: ['bars']
+            bar_width: 5
+          
+            GridLayout:  #used instead of boxlayout so stacking of song buttons start from top
+                id: playlist
+                cols: 1
+                spacing: 5
+                size_hint: 1, None
+                #this height is added each time a song is added to the Queue
+                height: root.h #max height where all music are to be fitted. Must be Greater than scrollview height!!
+                SongButton:
+                    text: 'Enjoy'
+                 
+
+<Recommendations>:
+    playlist: playlist
+    FloatLayout:
+        
+        canvas:
+            Rectangle:
+                size: self.size
+                pos: self.pos
+                source: '/home/brandon/MUSIR/imgs/discover.jpg'
+        
+        BoxLayout:
+            orientation: 'horizontal'
+            spacing: 5
+            size_hint_y: .1 
+            pos_hint: {"top": .97}
+            
+            Button:
+                text: 'Playlist'
+                on_release: root.manager.current = 'playlist'
+            
+            Button:
+                text: 'Discover'
+                on_release: root.manager.current = 'recomms'
+                
+        Button:
+            text: 'Recommend'
+            pos_hint: {"top": .81, "center_x": .15}
+            size_hint: .11, .08
+            on_release: root.recommend()
+        
+        ScrollView:
+            do_scroll_x: False
+            do_scroll_y: True
+            size_hint: .6, .77
+            pos_hint: {"top":.8, "right":.85}
+            scroll_type: ['bars']
+            bar_width: 5
+            
+            GridLayout:  #used instead of boxlayout so stacking of song buttons start from top
+                id: playlist
+                cols: 1
+                spacing: 5
+                size_hint: 1, None
+                #this height is added each time a song is added to the Queue
+                height: root.h #max height where all music are to be fitted. Must be Greater than scrollview height!!
+               
